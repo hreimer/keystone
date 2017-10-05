@@ -11,7 +11,7 @@ module.exports = function SigninRoute (req, res) {
 		brand: keystone.get('brand'),
 		csrf: { header: {} },
 		logo: keystone.get('signin logo'),
-		redirect: keystone.get('signin redirect'),
+		redirect: (typeof keystone.get('signin redirect') === 'string') ? keystone.get('signin redirect') : keystone.get('signin redirect')(req, res),
 		user: req.user ? {
 			id: req.user.id,
 			name: UserList.getDocumentName(req.user) || '(no name)',
